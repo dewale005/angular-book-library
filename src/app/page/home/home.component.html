@@ -1,0 +1,72 @@
+<mat-toolbar class="mat-elevation-z8" color="primary">
+    <mat-toolbar-row class="container">
+        <mat-icon>library_books</mat-icon>
+        <span>Book Library</span>
+        <span class="example-spacer"></span>
+        <button mat-button *ngIf="!libarian" (click)="switchUser()">Switch to librarian</button>
+        <button mat-button *ngIf="libarian" (click)="switchUser()">Switch to User</button>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+
+<div class="container">
+    <div class="topPadding">
+        <mat-card class="mat-elevation-z8">
+            <div class="form-group search">
+                <div class="search-Icon">
+                    <mat-icon>search</mat-icon>
+                </div>
+                <input (keyup)="applyFilter($event.target.value)" type="text" class="form-control no-border" placeholder="Search Keyword">
+            </div>
+        </mat-card>
+    </div>
+    <div class="row topPaddingsm">
+        <div class="col-sm-4" *ngIf="libarian">
+            <div class="mat-elevation-z8">
+                <mat-toolbar color="primary">
+                    <mat-toolbar-row>
+                        <span *ngIf="!editMode">Add A Book</span>
+                        <span *ngIf="editMode">Edit This Book</span>
+                        <span class="example-spacer"></span>
+                        <mat-icon *ngIf="!editMode" class="example-icon" aria-hidden="false" aria-label="Example heart icon">add_circle</mat-icon>
+                        <mat-icon *ngIf="editMode" class="example-icon" aria-hidden="false" aria-label="Example heart icon">edit</mat-icon>
+                    </mat-toolbar-row>
+                </mat-toolbar>
+                <div class="conatiner formData">
+                    <form (ngSubmit)="onSubmit()" [formGroup]="ngform">
+                        <div class="form-group">
+                            <input type="text" formControlName="title" class="form-control formStyle" placeholder="Enter Book Title">
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control formStyle" formControlName="description" rows="4" placeholder="Enter Book Description"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" formControlName="authur" class="form-control formStyle" placeholder="Enter Book Authur">
+                        </div>
+                        <div class="form-group">
+                            <input type="number" formControlName="price" class="form-control formStyle" placeholder="Enter Price">
+                        </div>
+                        <div class="form-group">
+                            <input type="file" #userPhoto accept="image/x-png,image/gif,image/jpeg" class="form-control-file formStyle" (change)="onFileSelected($event)">
+                        </div>
+                        <button type="submit" mat-raised-button color="primary" [disabled]="!ngform.valid">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div [ngClass]="libarian ? 'col-sm-8' :  'col-sm-12'">
+            <div class=" mat-elevation-z8 ">
+                <div class="selectFilter container">
+                    <div class=" " style="padding-bottom: 10px; padding-top: 10px; ">
+                        <button class="matStroke" mat-stroked-button color="primary" (click)="arrangeByNewest()">Newest</button>
+                        <button class="matStroke" mat-stroked-button color="primary" (click)="arrangeByOldest()">Oldest</button>
+                        <button class="matStroke" mat-stroked-button color="primary" (click)="arrangeByLowest()">Lower Price</button>
+                        <button class="matStroke" mat-stroked-button color="primary" (click)="arrangeByHighest()">Higest Price</button>
+                    </div>
+                </div>
+                <app-table [dataSource]='dataSource' [libarian]='libarian' (delete)='onDelete(event)' (edit)='onEdit($event)'></app-table>
+                <mat-paginator [pageSizeOptions]="[5, 10, 20] " showFirstLastButtons></mat-paginator>
+            </div>
+        </div>
+    </div>
+</div>

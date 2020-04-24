@@ -1,0 +1,14 @@
+<div class="container">
+    <div class="row" *ngIf="data">
+        <div class="col-sm-4">
+            <img src={{data.image}} alt="" width="100%">
+        </div>
+        <div class="col-sm-8">
+            <h3>{{data.title}}</h3>
+            <p>{{data.description}}</p>
+            <p>By <span>{{data.authur}}</span></p>
+            <p>Added: <span>{{data.DateAdded | date:'fullDate'}}</span></p>
+            <h5>{{data.price | currency: "₦ "}}</h5>
+        </div>
+    </div>
+</div>

@@ -40,6 +40,8 @@ npm-debug.log
 yarn-error.log
 testem.log
 /typings
+/mocked_data
+/mocked_server
 
 # System Files
 .DS_Store

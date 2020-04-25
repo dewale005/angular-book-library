@@ -64,7 +64,7 @@
                         <button class="matStroke" mat-stroked-button color="primary" (click)="arrangeByHighest()">Higest Price</button>
                     </div>
                 </div>
-                <app-table [dataSource]='dataSource' [libarian]='libarian' (delete)='onDelete(event)' (edit)='onEdit($event)'></app-table>
+                <app-table [dataSource]='dataSource' [libarian]='libarian' (delete)='onDelete($event)' (edit)='onEdit($event)'></app-table>
                 <mat-paginator [pageSizeOptions]="[5, 10, 20] " showFirstLastButtons></mat-paginator>
             </div>
         </div>
